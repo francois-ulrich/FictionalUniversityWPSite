@@ -4,7 +4,12 @@ function university_post_types() {
     register_post_type( // Create new post type
         'event', // Our post type Name
         array(
-            // 'description' => 'Events description',
+            'show_in_rest' => true,
+            'supports' => array( // Declare what built-in fields are supported by this post type
+                'title',
+                'editor',
+                'excerpt',
+            ),
             'has_archive' => true,
             'public' => true, // Make post types visible to editors & viewers of the website
             'labels' => array( // List of labels used at various places in the back office, refering to this new post type

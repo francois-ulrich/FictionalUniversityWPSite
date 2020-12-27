@@ -6,10 +6,24 @@ $homepagePosts = new WP_Query(array(
     'posts_per_page' => 2
 ));
 
+// Today's date
+$today = date('Ymd');
+
 // Custom query for home posts
 $homepageEvents = new WP_Query(array(
-    'posts_per_page' => 2,
+    'posts_per_page' => -1,
     'post_type' => 'event',
+    'meta_key' => 'event_date',
+    'orderby' => 'meta_value_num',
+    'order' => 'ASC',
+    'meta_query' => array( // Use meta_query if you want aditionnal conditions 
+        array( // Condition: Get all events, where event_date is later than today
+            'key' => 'event_date',
+            'compare' => '>=',
+            'value' => $today,
+            'type' => 'numeric', // We are comparing numbers
+        )
+    )
 ));
 
 
@@ -33,16 +47,30 @@ $homepageEvents = new WP_Query(array(
             <?php 
                 while($homepageEvents->have_posts()){
                     $homepageEvents->the_post();
+
+                    // Create date object for the event
+                    $eventDate = new DateTime(get_field('event_date'));
                     ?>
 
                     <div class="event-summary">
                         <a class="event-summary__date t-center" href="#">
-                            <span class="event-summary__month">Apr</span>
-                            <span class="event-summary__day">02</span>
+                            <span class="event-summary__month"><?php echo $eventDate->format("M"); ?></span>
+                            <span class="event-summary__day"><?php echo $eventDate->format("d");; ?></span>
                         </a>
                         <div class="event-summary__content">
                             <h5 class="event-summary__title headline headline--tiny"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
-                            <p><?php echo wp_trim_words(get_the_content(), 18); ?> <a href="<?php the_permalink(); ?>" class="nu gray">Learn&nbsp;more</a></p>
+                            <p>
+                                <?php 
+                                    // If post has excerpt, show it. Else, take the main content and trim it down to a few words
+                                    if(has_excerpt()){
+                                        // Echo get_... doesn't output text in <p> tags, so use that
+                                        echo get_the_excerpt();
+                                    }else{
+                                        echo wp_trim_words(get_the_content(), 18);
+                                    }
+                                ?>
+                                <a href="<?php the_permalink(); ?>" class="nu gray">Learn&nbsp;more</a>
+                            </p>
                         </div>
                     </div>
 
@@ -78,7 +106,7 @@ $homepageEvents = new WP_Query(array(
                 </div>
             </div> -->
 
-            <p class="t-center no-margin"><a href="#" class="btn btn--blue">View All Events</a></p>
+            <p class="t-center no-margin"><a href="<?php echo get_post_type_archive_link('event'); ?>" class="btn btn--blue">View All Events</a></p>
         </div>
     </div>
     <div class="full-width-split__two">
@@ -98,7 +126,19 @@ $homepageEvents = new WP_Query(array(
                         </a>
                         <div class="event-summary__content">
                             <h5 class="event-summary__title headline headline--tiny"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
-                            <p><?php echo wp_trim_words(get_the_content(), 18); ?> <a href="<?php the_permalink(); ?>" class="nu gray">Read&nbsp;more</a></p>
+
+                            <p>
+                                <?php 
+                                    // If post has excerpt, show it. Else, take the main content and trim it down to a few words
+                                    if(has_excerpt()){
+                                        // Echo doesn't output text in <p> tags, so use that
+                                        echo get_the_excerpt();
+                                    }else{
+                                        echo wp_trim_words(get_the_content(), 18);
+                                    }
+                                ?>
+                                <a href="<?php the_permalink(); ?>" class="nu gray">Read&nbsp;more</a>
+                            </p>
                         </div>
                     </div>
 
