@@ -51,3 +51,27 @@ function university_features(){
 }
 
 add_action('after_setup_theme', 'university_features');
+
+// Apply options to all queries, in back-office AND on public website
+function university_adjust_queries($query){
+    // Today's date
+    $today = date('Ymd');
+    
+    // If we're on public website, on event archive and the query is WP generated and not a custom query
+    if(!is_admin() && is_post_type_archive('event') && $query->is_main_query()){
+        $query->set('meta_key', 'event_date');
+        $query->set('orderby', 'meta_value_num');
+        $query->set('order', 'ASC');
+        $query->set('meta_query', array( // Use meta_query if you want aditionnal conditions 
+            array( // Condition: Get all events, where event_date is later than today
+                'key' => 'event_date',
+                'compare' => '>=',
+                'value' => $today,
+                'type' => 'numeric', // We are comparing numbers
+            )
+        ));
+    }
+}
+
+add_action('pre_get_posts', 'university_adjust_queries');
+
