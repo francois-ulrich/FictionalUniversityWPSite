@@ -1,23 +1,41 @@
 <?php
     get_header();
+
+    // Today's date
+    $today = date('Ymd');
+
+    // Custom query for past events
+    $pastEvents = new WP_Query(array(
+        'paged' => get_query_var('paged', 1),
+        'posts_per_page' => 10,
+        'post_type' => 'event',
+        'meta_key' => 'event_date',
+        'orderby' => 'meta_value_num',
+        'order' => 'ASC',
+        'meta_query' => array( // Use meta_query if you want aditionnal conditions 
+            array( // Condition: Get all events, where event_date came before today
+                'key' => 'event_date',
+                'compare' => '<',
+                'value' => $today,
+                'type' => 'numeric', // We are comparing numbers
+            )
+        )
+    ));
 ?>
 
 <div class="page-banner">
     <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri("images/ocean.jpg")  ?>);"></div>
     <div class="page-banner__content container container--narrow">
-        <h1 class="page-banner__title"><?php the_archive_title(); ?></h1>
-        <div class="page-banner__intro">
-            <p><?php the_archive_description(); ?></p>
-        </div>
+        <h1 class="page-banner__title"><?php echo the_title(); ?></h1>
     </div>
 </div>
 
 <div class="container container--narrow page-section">
     <?php
         // Loop through all posts
-        while(have_posts()){
+        while($pastEvents->have_posts()){
             // Get current post data
-            the_post();
+            $pastEvents->the_post();
 
             // Create date object for the event
             $eventDate = new DateTime(get_field('event_date'));
@@ -50,15 +68,10 @@
 
             <?php
         }
-        ?>
-
-        <hr class='section-break'>
-
-        <p>Looking for a recap of past events? Check out our <a href="<?php echo site_url('/past-events') ?>">past events archive</a></p>
-
-        <?php
         // Display pagination
-        echo paginate_links();
+        echo paginate_links(array(
+            'total' => $pastEvents->max_num_pages
+        ));
     ?>
 </div>
 
