@@ -1,11 +1,12 @@
 <?php
-
-
 get_header();
 // Loop through all blog posts
 while (have_posts()) {
     // Tells wordpress to get all the infos of the post
     the_post();
+
+    // Get related programs content. The ACF plugin gives us access to the function get_field
+    $relatedPrograms = get_field('related_programs');
     ?>
         <div class="page-banner">
             <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri("images/ocean.jpg")  ?>);"></div>
@@ -19,6 +20,8 @@ while (have_posts()) {
 
         <div class="container container--narrow page-section">
             <?php 
+                // print_r($relatedPrograms);
+
                 // Show breadcrumb only if in a child page
                 ?>
                     <div class="metabox metabox--position-up metabox--with-home-link">
@@ -33,6 +36,32 @@ while (have_posts()) {
             <div class="generic-content">
                 <?php the_content(); ?>
             </div>
+
+            <?php 
+                if($relatedPrograms && count($relatedPrograms) > 0){
+                    ?>
+                        <hr class="section-break">
+
+                        <h3 class="headline headline--medium">Related programs</h3>
+                    
+                        <ul>
+                            <?php
+                                // Show all programs, which are regular post objects
+                                foreach($relatedPrograms as $program){
+                                    ?>
+                                        <li>
+                                            <a href="<?php echo get_the_permalink($program) ?>"><?php echo get_the_title($program) ?></a>
+                                        </li>
+                                    <?php
+                                }
+                            ?>
+                        </ul>
+                    
+                    <?php
+                }
+            ?>
+            
+
         </div>
     <?php
 }
