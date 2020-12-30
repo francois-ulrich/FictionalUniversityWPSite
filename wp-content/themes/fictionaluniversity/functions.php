@@ -42,12 +42,21 @@ function university_files() {
 // Add load css / js action
 add_action('wp_enqueue_scripts', 'university_files');
 
-// Add the title value in our title tag
+// Tell WP what features we need for the website.
 function university_features(){
+    // Menus
     register_nav_menu('headerMenuLocation', 'Header Menu Location');
     register_nav_menu('footerMenu1Location', 'Footer Menu 1 Location');
     register_nav_menu('footerMenu2Location', 'Footer Menu 2 Location');
+
     add_theme_support("title-tag");
+
+    // Enable feature images
+    add_theme_support("post-thumbnails");
+
+    // Enable WP Generated image resize
+    $image_crop = true; // Let WP crop the image
+    add_image_size('professorPP', 250, 250, $image_crop);
 }
 
 add_action('after_setup_theme', 'university_features');

@@ -60,6 +60,7 @@ function university_post_types() {
             'supports' => array( // Declare what built-in fields are supported by this post type
                 'title',
                 'editor',
+                'thumbnail', // We want a thumbnail attached to this post
             ),
             'public' => true, // Make post types visible to editors & viewers of the website
             'labels' => array( // List of labels used at various places in the back office, refering to this new post type
