@@ -10,7 +10,7 @@ while (have_posts()) {
     // Today's date
     $today = date('Ymd');
 
-    // Custom query for home events
+    // Custom query for related events
     $homepageEvents = new WP_Query(array(
         'posts_per_page' => -1,
         'post_type' => 'event',
@@ -24,6 +24,22 @@ while (have_posts()) {
                 'value' => $today,
                 'type' => 'numeric', // We are comparing numbers
             ),
+            // Only get events related to the program
+            array(
+                'key' => 'related_programs',
+                'compare' => 'LIKE',
+                'value' => strval(get_the_ID()),
+            )
+        )
+    ));
+
+    // Custom query for professors who teach this program
+    $homepageProfessors = new WP_Query(array(
+        'posts_per_page' => -1,
+        'post_type' => 'professor',
+        'orderby' => 'title',
+        'order' => 'ASC',
+        'meta_query' => array( // Use meta_query if you want aditionnal conditions 
             // Only get events related to the program
             array(
                 'key' => 'related_programs',
@@ -101,6 +117,28 @@ while (have_posts()) {
                         <?php
                     }
                 ?>
+            <?php
+            }
+            ?>
+
+            <?php
+            if($homepageProfessors->found_posts > 0){
+            ?>
+                <hr class="section-break">
+
+                <h3 class="headline headline--medium">Professors who teach this program</h3>
+
+                <ul>
+                <?php 
+                    while($homepageProfessors->have_posts()){
+                        $homepageProfessors->the_post();
+
+                        ?>
+                        <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                        <?php
+                    }
+                ?>
+                </ul>
             <?php
             }
             ?>

@@ -51,6 +51,31 @@ function university_post_types() {
             )
         )
     );
+
+    // Professor
+    register_post_type( // Create new post type
+        'professor', // Our post type Name
+        array(
+            'show_in_rest' => true,
+            'supports' => array( // Declare what built-in fields are supported by this post type
+                'title',
+                'editor',
+            ),
+            'public' => true, // Make post types visible to editors & viewers of the website
+            'labels' => array( // List of labels used at various places in the back office, refering to this new post type
+                'name' => 'Professors', // Post name
+                'add_new_item' => 'Add New Professor',
+                'edit_item' => 'Edit Professor',
+                'all_items' => 'All Professors',
+                'singular_name' => 'Professor',
+            ),
+            'menu_icon' => 'dashicons-welcome-learn-more',
+            'rewrite' => array(
+                'slug' => 'professors'
+            )
+        )
+    );
+
 }
 
 add_action('init', 'university_post_types');
