@@ -33,8 +33,6 @@ while (have_posts()) {
         )
     ));
 
-
-
     ?>
         <div class="page-banner">
             <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri("images/ocean.jpg")  ?>);"></div>
@@ -63,40 +61,48 @@ while (have_posts()) {
                 <?php the_content(); ?>
             </div>
 
-            <hr class="section-break">
+            <?php
+            if($homepageEvents->found_posts > 0){
+            ?>
+                <hr class="section-break">
 
-            <?php 
-                while($homepageEvents->have_posts()){
-                    $homepageEvents->the_post();
+                <h3 class="headline headline--medium">Upcoming <?php the_title(); ?> events</h3>
 
-                    // Create date object for the event
-                    $eventDate = new DateTime(get_field('event_date'));
-                    ?>
+                <?php 
+                    while($homepageEvents->have_posts()){
+                        $homepageEvents->the_post();
 
-                    <div class="event-summary">
-                        <a class="event-summary__date t-center" href="#">
-                            <span class="event-summary__month"><?php echo $eventDate->format("M"); ?></span>
-                            <span class="event-summary__day"><?php echo $eventDate->format("d");; ?></span>
-                        </a>
-                        <div class="event-summary__content">
-                            <h5 class="event-summary__title headline headline--tiny"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
-                            <p>
-                                <?php 
-                                    // If post has excerpt, show it. Else, take the main content and trim it down to a few words
-                                    if(has_excerpt()){
-                                        // Echo get_... doesn't output text in <p> tags, so use that
-                                        echo get_the_excerpt();
-                                    }else{
-                                        echo wp_trim_words(get_the_content(), 18);
-                                    }
-                                ?>
-                                <a href="<?php the_permalink(); ?>" class="nu gray">Learn&nbsp;more</a>
-                            </p>
+                        // Create date object for the event
+                        $eventDate = new DateTime(get_field('event_date'));
+                        ?>
+
+                        <div class="event-summary">
+                            <a class="event-summary__date t-center" href="#">
+                                <span class="event-summary__month"><?php echo $eventDate->format("M"); ?></span>
+                                <span class="event-summary__day"><?php echo $eventDate->format("d");; ?></span>
+                            </a>
+                            <div class="event-summary__content">
+                                <h5 class="event-summary__title headline headline--tiny"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
+                                <p>
+                                    <?php 
+                                        // If post has excerpt, show it. Else, take the main content and trim it down to a few words
+                                        if(has_excerpt()){
+                                            // Echo get_... doesn't output text in <p> tags, so use that
+                                            echo get_the_excerpt();
+                                        }else{
+                                            echo wp_trim_words(get_the_content(), 18);
+                                        }
+                                    ?>
+                                    <a href="<?php the_permalink(); ?>" class="nu gray">Learn&nbsp;more</a>
+                                </p>
+                            </div>
                         </div>
-                    </div>
 
-                    <?php
-                }
+                        <?php
+                    }
+                ?>
+            <?php
+            }
             ?>
 
         </div>
