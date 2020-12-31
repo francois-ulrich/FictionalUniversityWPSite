@@ -135,8 +135,7 @@ while (have_posts()) {
                 ?>
                     <li class="professor-card__list-item">
                         <a href="<?php the_permalink(); ?>" class="professor-card">
-                            <?php the_post_thumbnail(); ?>
-                            <img class="professor-card__image" src="images/barksalot.jpg">
+                            <img class="professor-card__image" src="<?php the_post_thumbnail_url("professorLandscape"); ?>">
                             <span class="professor-card__name"><?php the_title(); ?></span>
                         </a>
                     </li>

@@ -36,7 +36,7 @@ while (have_posts()) {
             <div class="generic-content">
                 <div class="row group">
                     <div class="one-third">
-                        <?php the_post_thumbnail(); ?>
+                        <img class="professor-card__image" src="<?php the_post_thumbnail_url("professorPortrait"); ?>">
                     </div>
                     <div class="two-thirds">
                         <?php the_content(); ?>

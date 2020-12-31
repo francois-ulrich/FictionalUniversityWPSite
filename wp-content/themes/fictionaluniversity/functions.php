@@ -56,7 +56,8 @@ function university_features(){
 
     // Enable WP Generated image resize
     $image_crop = true; // Let WP crop the image
-    add_image_size('professorPP', 250, 250, $image_crop);
+    add_image_size('professorLandscape', 400, 260, $image_crop);
+    add_image_size('professorPortrait', 480, 650, $image_crop);
 }
 
 add_action('after_setup_theme', 'university_features');
