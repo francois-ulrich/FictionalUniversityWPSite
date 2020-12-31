@@ -58,6 +58,9 @@ function university_features(){
     $image_crop = true; // Let WP crop the image
     add_image_size('professorLandscape', 400, 260, $image_crop);
     add_image_size('professorPortrait', 480, 650, $image_crop);
+
+    // Image size for page banner
+    add_image_size('pageBanner', 1500, 350, $image_crop);
 }
 
 add_action('after_setup_theme', 'university_features');
