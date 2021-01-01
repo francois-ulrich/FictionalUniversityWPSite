@@ -38,4 +38,7 @@ license.txt
 *.log
 wp-config.php
 
+# JS & PHP Dependencies
 node_modules/
+composer.phar
+vendor/

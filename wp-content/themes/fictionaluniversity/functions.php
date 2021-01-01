@@ -1,4 +1,8 @@
 <?php
+// Pull in Composer’s autoload
+require_once( __DIR__ . '/vendor/autoload.php' );
+
+
 
 function university_files() {
     // Load styles / fonts
@@ -94,3 +98,41 @@ function university_adjust_queries($query){
 
 add_action('pre_get_posts', 'university_adjust_queries');
 
+// Timber config
+use Timber\Timber;
+$timber = new Timber();
+
+// Set templates folder
+Timber::$dirname = 'templates';
+
+// Add menu to global timber context
+function add_to_context($context){
+    // // So here you are adding data to Timber's context object, i.e...
+    // $context['foo'] = 'I am some other typical value set in your functions.php file, unrelated to the menu';
+
+    // // Now, in similar fashion, you add a Timber Menu and send it along to the context.
+    // $context['headerMenu'] = new \Timber\Menu('headerMenuLocation');
+    // $context['footerMenu1'] = new \Timber\Menu('footerMenu1Location');
+    // $context['footerMenu2'] = new \Timber\Menu('footerMenu2Location');
+
+    // Arguments for menus
+
+    // Header menu
+    $context['headerMenuLocationArgs'] = array(
+        'theme_location' => 'headerMenuLocation',
+    );
+
+    // Footer menus
+    $context['footerMenu1LocationArgs'] = array(
+        'theme_location' => 'footerMenu1Location',
+    );
+
+    $context['footerMenu2LocationArgs'] = array(
+        'theme_location' => 'footerMenu2Location',
+    );
+
+    return $context;
+}
+
+
+add_filter('timber/context', 'add_to_context');
