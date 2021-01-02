@@ -1,31 +1,14 @@
 <div class="event-summary">
-	<a class="event-summary__date event-summary__date--beige t-center" href="<?php the_permalink(); ?>">
-		<span class="event-summary__month"><?php the_time("M"); ?></span>
-		<span class="event-summary__day"><?php the_time("d"); ?></span>
+    <a class="event-summary__date t-center" href="{{post.link}}">
+		<span class="event-summary__month">{{post.date | date("M")}}</span>
+		<span class="event-summary__day">{{post.date | date("d")}}</span>
 	</a>
 	<div class="event-summary__content">
 		<h5 class="event-summary__title headline headline--tiny">
-			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+			<a href="{{post.link}}">{{post.title}}</a>
 		</h5>
-
 		<p>
-		<?php 
-                        // If post has excerpt, show it. Else, take the main content and trim it down to a few words
-                        if(has_excerpt()){
-                            // Echo doesn't output text in <p> tags, so use that
-                            echo get_the_excerpt();
-                        }else{
-                            echo wp_trim_words(get_the_content(), 18);
-                        }
-                    ?>
-            <a href="<?php the_permalink(); ?>" class="nu gray">Read&nbsp;more</a>
-        </p>
-    </div>
+			{{post.preview.length(18).read_more('Learn&nbsp;more')}}
+		</p>
+	</div>
 </div>
-
-<?php
-
-                        // Clean up after custom query
-                        wp_reset_postdata();
-                    }
-                ?>

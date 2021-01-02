@@ -1,0 +1,15 @@
+<div class="event-summary">
+	<a class="event-summary__date t-center" href="{{event.link}}">
+
+		<span class="event-summary__month">{{event.event_date | date("M")}}</span>
+		<span class="event-summary__day">{{event.event_date | date("d")}}</span>
+	</a>
+	<div class="event-summary__content">
+		<h5 class="event-summary__title headline headline--tiny">
+			<a href="{{event.link}}">{{event.title}}</a>
+		</h5>
+		<p>
+			{{event.preview.length(18).read_more('Learn&nbsp;more')}}
+		</p>
+	</div>
+</div>

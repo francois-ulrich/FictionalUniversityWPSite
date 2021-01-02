@@ -2,8 +2,6 @@
 // Pull in Composer’s autoload
 require_once( __DIR__ . '/vendor/autoload.php' );
 
-
-
 function university_files() {
     // Load styles / fonts
     wp_enqueue_style('css_custom_google_font', 'https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
