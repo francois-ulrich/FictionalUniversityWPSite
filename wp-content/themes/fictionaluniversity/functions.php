@@ -100,9 +100,6 @@ add_action('pre_get_posts', 'university_adjust_queries');
 use Timber\Timber;
 $timber = new Timber();
 
-// Set templates folder
-Timber::$dirname = 'templates';
-
 // Add menu to global timber context
 function add_to_context($context){
     // // So here you are adding data to Timber's context object, i.e...

@@ -29,4 +29,4 @@ $context['events'] = Timber::get_posts(array(
     )
 ));
 
-Timber::render( './templates/front-page.twig', $context );
+Timber::render( './views/pages/front-page.twig', $context );
