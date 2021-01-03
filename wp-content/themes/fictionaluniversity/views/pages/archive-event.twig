@@ -1,14 +1,15 @@
 {% extends "/templates/archive.twig" %}
 
 {% block archive_content %}
-	{% for event in posts %}
+	{% for post in posts %}
 		{% include "/posts/event.twig" %}
 	{% endfor %}
+
+	{% include "/components/pagination.twig" %}
 
 	<hr class='section-break'>
 
 	<p>Looking for a recap of past events? Check out our
 		<a href="{{ fn('site_url', '/past-events') }}">past events archive</a>
 	</p>
-
 {% endblock %}

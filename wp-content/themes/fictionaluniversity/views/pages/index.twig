@@ -1,0 +1,13 @@
+{% extends "/templates/page.twig" %}
+
+{% block banner %}
+	{% include "/components/banners/default.twig" %}
+{% endblock %}
+
+{% block content %}
+    <div class="container container--narrow page-section">
+        {% for post in posts %}
+            {% include "/posts/blog-post.twig" %}
+        {% endfor %}
+    </div>
+{% endblock %}

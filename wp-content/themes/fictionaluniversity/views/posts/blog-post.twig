@@ -1,14 +1,24 @@
-<div class="event-summary">
-    <a class="event-summary__date t-center" href="{{post.link}}">
-		<span class="event-summary__month">{{post.date | date("M")}}</span>
-		<span class="event-summary__day">{{post.date | date("d")}}</span>
-	</a>
-	<div class="event-summary__content">
-		<h5 class="event-summary__title headline headline--tiny">
-			<a href="{{post.link}}">{{post.title}}</a>
-		</h5>
-		<p>
-			{{post.preview.length(18).read_more('Learn&nbsp;more')}}
-		</p>
-	</div>
+<div class="post-item">
+	<h3>
+		<a href="{{post.link}}">{{post.title}}</a>
+	</h3>
 </div>
+
+<div class="metabox">
+	<p>Posted by
+		<a href="{{post.author.link}}">{{post.author.name}}</a>
+		on
+		{{ post.date('"d M Y') }}
+		in
+		{{ fn('get_the_category_list', ', ') }}
+	</p>
+</div>
+
+<div class="generic-content">
+	{{post.preview.length(18).read_more(false)}}
+
+	<p>
+		<a class="btn btn--blue" href="{{post.link}}">Continue readling</a>
+	</p>
+</div>
+

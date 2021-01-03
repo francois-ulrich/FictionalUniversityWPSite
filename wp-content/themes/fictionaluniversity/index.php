@@ -1,9 +1,10 @@
 <?php
 
-// // Initialize Timber
-// use Timber\Timber;
+// Initialize Timber
+use Timber\Timber;
 
-// $context = Timber::context();
-// $context['posts'] = Timber::get_posts();
+$context = Timber::context();
+$context['posts'] = Timber::get_posts();
+$context['categories'] = Timber::get_terms('category', array('parent' => 0));
 
-// Timber::render('./templates/front-page.twig', $context);
+Timber::render('./views/pages/index.twig', $context);

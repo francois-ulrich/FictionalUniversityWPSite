@@ -1,9 +1,14 @@
 {% extends "/templates/page.twig" %}
 
+{% block banner %}
+    {% include "/components/banners/archive.twig" %}
+{% endblock %}
+
 
 {% block content %}
     <div class="container container--narrow page-section">
         {% block archive_content %}
+        
         {% endblock %}
     </div>
 {% endblock %}

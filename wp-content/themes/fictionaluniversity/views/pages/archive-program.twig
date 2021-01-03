@@ -1,0 +1,9 @@
+{% extends "/templates/archive.twig" %}
+
+{% block archive_content %}
+	{% for post in posts %}
+		{% include "/posts/program.twig" %}
+	{% endfor %}
+
+    {% include "/components/pagination.twig" %}
+{% endblock %}
