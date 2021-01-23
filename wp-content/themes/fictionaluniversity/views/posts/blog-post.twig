@@ -5,13 +5,7 @@
 </div>
 
 <div class="metabox">
-	<p>Posted by
-		<a href="{{post.author.link}}">{{post.author.name}}</a>
-		on
-		{{ post.date('"d M Y') }}
-		in
-		{{ fn('get_the_category_list', ', ') }}
-	</p>
+	{% include "/components/posts/post-infos.twig" %}
 </div>
 
 <div class="generic-content">

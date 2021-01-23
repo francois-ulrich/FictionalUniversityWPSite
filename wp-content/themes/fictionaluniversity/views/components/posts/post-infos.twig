@@ -1,0 +1,8 @@
+<p>Posted by
+    <a href="{{post.author.link}}">{{post.author.name}}</a>
+    {% if post.terms('category') %}
+        in
+        {{ fn('get_the_category_list', ', ') }}
+    {% endif %}
+    <span>&bull;</span> {{ post.post_date|date }}</p>
+</p>
