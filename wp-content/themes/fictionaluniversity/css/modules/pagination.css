@@ -1,0 +1,24 @@
+.pagination {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    justify-content: center;
+
+    &__elements-container {
+        display: inline;
+        font-size: 0;
+    }
+
+    &__element {
+        display: inline;
+        margin: 0 4px;
+
+        &--fixed-width {
+            width: 80px;
+        }
+    }
+
+    &__button {
+        width: 100%;
+    }
+}

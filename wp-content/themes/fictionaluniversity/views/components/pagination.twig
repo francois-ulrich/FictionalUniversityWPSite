@@ -1,23 +1,30 @@
 {% if posts.pagination %}
-    <div class="tool-pagination">
-        {% if posts.pagination.prev %}
-            <a href="{{posts.pagination.prev.link}}" class="prev {{posts.pagination.prev.link|length ? '' : 'invisible'}}">Prev</a>
-        {% endif %}
-        <ul class="pages">
+    <ul class="pagination">
+        <li
+        class="pagination__element">
+        <a href="{{posts.pagination.prev.link}}" class="btn btn--small {% if posts.pagination.prev %}btn--orange{% else %}btn--inactive{% endif %} prev">Previous</a>
+        </li>
+
+        <span class="pagination__elements-container">
             {% for page in posts.pagination.pages %}
-                <li>
+                <li class="pagination__element">
                     {% if page.link %}
-                        <a href="{{page.link}}" class="{{page.class}}">{{page.title}}</a>
+                        <a href="{{page.link}}" class="{{page.class}} btn btn--small btn--orange">{{page.title}}</a>
                     {% else %}
-                        <span class="{{page.class}}">{{page.title}}</span>
+                        <span class="{{page.class}} btn btn--small btn--inactive"  >{{page.title}}</span>
                     {% endif %}
                 </li>
             {% endfor %}
-        </ul>
-        {% if posts.pagination.next %}
-            <a href="{{posts.pagination.next.link}}" class="next {{posts.pagination.next.link|length ? '' : 'invisible'}}">Next</a>
-        {% endif %}
-    </div>
+        </span>
+
+        <li class="pagination__element">
+            <a
+            {% if posts.pagination.next %}
+                href="{{posts.pagination.next.link}}"
+            {% endif %}
+
+            class="btn btn--small {% if posts.pagination.next %}btn--orange{% else %}btn--inactive{% endif %}  next"
+            >Next</a>
+        </li>
+    </ul>
 {% endif %}
-
-

@@ -37,6 +37,7 @@ readme.html
 license.txt
 *.log
 wp-config.php
+.editorconfig
 
 # JS & PHP Dependencies
 node_modules/
