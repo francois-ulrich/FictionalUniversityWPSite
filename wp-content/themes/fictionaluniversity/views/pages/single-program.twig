@@ -1,0 +1,41 @@
+{% extends "/templates/page.twig" %}
+
+{% block content %}
+    <div class="container container--narrow page-section">
+        <div class="content-wrapper">
+            <article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
+                <section class="article-content">
+                    <h1 class="article-h1">{{ post.title }}</h1>
+
+                    <h2 class="article-h2">{{ post.subtitle }}</h2>
+
+                    {% include "/components/posts/post-infos.twig" %}
+
+                    {{ post.content }}
+
+                    {% if events %}
+                        <hr class="section-break">
+
+                        <h3 class="headline headline--medium">Upcoming {{post.title}} events</h3>
+
+                        {% for post in events %}
+                            {% include "/posts/event.twig" %}
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if professors %}
+                        <hr class="section-break">
+
+                        <h3 class="headline headline--medium">Professors who teach this program</h3>
+
+                        <ul class="professor-cards">
+                            {% for post in professors %}
+                                {% include "/posts/professor.twig" %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </section>
+            </article>
+        </div>
+    </div>
+{% endblock %}
