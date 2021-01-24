@@ -13,24 +13,15 @@
 
                     {{ post.content }}
 
-                    {% if events %}
+
+                    {% if programs %}
                         <hr class="section-break">
 
-                        <h3 class="headline headline--medium">Upcoming {{post.title}} events</h3>
+                        <h3 class="headline headline--medium">Related programs</h3>
 
-                        {% for post in events %}
-                            {% include "/posts/event.twig" %}
-                        {% endfor %}
-                    {% endif %}
-
-                    {% if professors %}
-                        <hr class="section-break">
-
-                        <h3 class="headline headline--medium">Professors who teach this program</h3>
-
-                        <ul class="professor-cards">
-                            {% for post in professors %}
-                                {% include "/posts/professor.twig" %}
+                        <ul>
+                            {% for program in programs %}
+                                <li><a href="{{program.guid}}">{{program.post_title}}</a></li>
                             {% endfor %}
                         </ul>
                     {% endif %}
@@ -39,7 +30,3 @@
         </div>
     </div>
 {% endblock %}
-
-
-
-
