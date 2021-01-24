@@ -8,9 +8,7 @@
                     <h1 class="article-h1">{{ post.title }}</h1>
 
                     <h2 class="article-h2">{{ post.subtitle }}</h2>
-                    {# <p class="blog-author">
-                        By <a href="{{post.author.link}}">{{post.author.name}}</a> in {{ fn('get_the_category_list', ', ') }} <span>&bull;</span> {{ post.post_date|date }}
-                    </p> #}
+
                     {% include "/components/posts/post-infos.twig" %}
 
                     {{ post.content }}
